@@ -23,7 +23,6 @@ export default class PathfindingVisualizer extends Component {
             startNodeCol: 15,
             finishNodeRow: 10,
             finishNodeCol: 35,
-
         };
     }
 
