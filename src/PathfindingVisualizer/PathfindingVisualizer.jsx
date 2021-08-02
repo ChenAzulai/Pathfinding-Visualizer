@@ -211,7 +211,7 @@ const getNewGridWithWallToggle = (grid, row, col) => {
     };
     newGrid[row][col] = newNode;
     return newGrid;
-}
+};
 
 const getNewGridStartChanged = (grid, row, col) => {
     const newGrid = grid.slice();
@@ -222,4 +222,4 @@ const getNewGridStartChanged = (grid, row, col) => {
     };
     newGrid[row][col] = newNode;
     return newGrid;
-}
+};
