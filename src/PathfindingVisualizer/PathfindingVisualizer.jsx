@@ -130,7 +130,7 @@ export default class PathfindingVisualizer extends Component {
                     <ul className="nav">
                         <li id="visualize-btn">
                             <a href="#" onClick={() => this.visualizeDijkstra()}>
-                                Visualize Dijkstra's algorithms
+                                Visualize Dijkstra's algorithm
                             </a>
                         </li>
                         <li id="clean-btn">
