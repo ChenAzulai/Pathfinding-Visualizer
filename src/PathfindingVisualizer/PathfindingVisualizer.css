@@ -36,6 +36,7 @@ a {
     margin-top: 10px;
     /*padding: 5%;*/
 }
+
 .nav > li > a {
     color: white;
     display: block;
@@ -54,4 +55,60 @@ a {
     -webkit-transition: all 1s ease;
 }
 
+#mainGrid {
+    position: absolute;
+    z-index: 1;
+}
 
+#mainText div {
+    /*border: 1px solid rgb(12, 53, 71);*/
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    position: relative;
+    top: 0.35em;
+    margin: 0 0.42em;
+}
+
+#mainText > ul li {
+    display: inline-block;
+    list-style: none;
+    padding: 0 28px 0 0;
+}
+
+.target {
+    /*border: 1px solid rgb(175, 216, 248);*/
+    background-image: url(../icons/circle.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.start {
+    /*border: 1px solid rgb(175, 216, 248);*/
+    background-image: url(../icons/triangletwo-right.svg);
+    /*background-color: rgb(255, 254, 106);*/
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.unvisited {
+    border: 1px solid rgb(175, 216, 248);
+    background-color: white
+}
+
+.visited {
+    border: 1px solid rgb(175, 216, 248);
+    background-color: rgba(0, 190, 218, 0.75);;
+}
+
+.shortest-path{
+    border: 1px solid rgb(175, 216, 248);
+    background-color: rgb(255, 254, 106);
+}
+
+.wall{
+    background-color: rgb(12, 53, 71);
+
+}

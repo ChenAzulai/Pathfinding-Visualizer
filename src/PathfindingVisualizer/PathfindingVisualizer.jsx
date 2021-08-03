@@ -140,6 +140,36 @@ export default class PathfindingVisualizer extends Component {
                         </li>
                     </ul>
                 </div>
+                <div id='mainText'>
+                    <ul>
+                        <li>
+                            <div className="start"></div>
+                            Start Node
+                        </li>
+                        <li>
+                            <div className="target"></div>
+                            Target Node
+                        </li>
+                        <li>
+                            <div className="unvisited"></div>
+                            Unvisited Node
+                        </li>
+                        <li>
+                            <div className="visited"></div>
+                            Visited Nodes
+                        </li>
+                        <li>
+                            <div className="shortest-path"></div>
+                            Shortest-path Node
+                        </li>
+                        <li>
+                            <div className="wall"></div>
+                            Wall Node
+                        </li>
+                    </ul>
+                </div>
+                <div id="algorithmDescriptor">To set a wall, select and drag the mouse over the nodes.</div>
+
                 <div className="grid">
                     {grid.map((row, rowInd) => {
                         return (<div key={rowInd}>
