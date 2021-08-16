@@ -162,7 +162,7 @@ export default class PathfindingVisualizer extends Component {
                     <div className="actions-btn">
                         <ul className="nav">
                             <li id="visualize-btn">
-                                <a href="#" onClick={() => {this.handleVisualize()}}>
+                                <a href="" onClick={() => {this.handleVisualize()}}>
                                     {this.state.currentAlgorithm === '' ? 'Visualize!' : 'Visualize ' + this.state.currentAlgorithm + '!'}
                                 </a>
                             </li>
