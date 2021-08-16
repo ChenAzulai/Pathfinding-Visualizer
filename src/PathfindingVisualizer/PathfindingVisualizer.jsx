@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
 import Node from './Node/Node'
 import {dijkstra, getNodesInShortestPath} from '../algorithms/dijkstra'
 import './PathfindingVisualizer.css'
@@ -89,7 +89,7 @@ export default class PathfindingVisualizer extends Component {
             if (i === visitedNodesInOrder.length) {
                 setTimeout(() => {
                     this.animateShorterPath(nodesInShortestPath);
-                }, 10 * i)
+                }, 10 * i);
                 return;
             }
             setTimeout(() => {
@@ -162,7 +162,7 @@ export default class PathfindingVisualizer extends Component {
                     <div className="actions-btn">
                         <ul className="nav">
                             <li id="visualize-btn">
-                                <a href="" onClick={() => {this.handleVisualize()}}>
+                                <a href="#" onClick={() => {this.handleVisualize()}}>
                                     {this.state.currentAlgorithm === '' ? 'Visualize!' : 'Visualize ' + this.state.currentAlgorithm + '!'}
                                 </a>
                             </li>
@@ -286,32 +286,3 @@ const getNewGridStartChanged = (grid, row, col) => {
     newGrid[row][col] = newNode;
     return newGrid;
 };
-
-{/*<li className="dropdown open">*/
-}
-{/*    <a className="dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="true">*/
-}
-{/*        "Algorithms"*/
-}
-{/*        <span className="caret"/>*/
-}
-{/*    </a>*/
-}
-{/*    <ul className="dropdown-menu">*/
-}
-{/*        <li id="Dijkstra">*/
-}
-{/*            <a href="#">Dijkstra's Algorithm</a>*/
-}
-{/*        </li>*/
-}
-{/*        <li id="aStar">*/
-}
-{/*            <a href="#">A* Search</a>*/
-}
-{/*        </li>*/
-}
-{/*    </ul>*/
-}
-{/*</li>*/
-}
