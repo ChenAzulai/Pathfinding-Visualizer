@@ -6,12 +6,25 @@
     width: 100%;
     height: 100px;
     background-color: #34495e;
-    margin: 0;
+    margin: auto;
     padding-top: 20px;
-
-
+overflow: hidden;
+    display: flex;
 }
 
+.dropdown-bar{
+    float: left;
+    display: inherit;
+    margin: auto 30px auto auto;
+}
+
+.actions-btn{
+    margin: auto auto auto 30px;
+}
+#dropdown{
+    font-size: x-large;
+    padding: 5px;
+}
 li {
     text-align: -webkit-match-parent;
 }
@@ -54,6 +67,8 @@ a {
     transition: all 1s ease;
     -webkit-transition: all 1s ease;
 }
+
+
 
 #mainGrid {
     position: absolute;

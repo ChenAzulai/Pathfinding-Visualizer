@@ -1,7 +1,12 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import Node from './Node/Node'
 import {dijkstra, getNodesInShortestPath} from '../algorithms/dijkstra'
 import './PathfindingVisualizer.css'
+
+import 'react-dropdown/style.css';
+
+
+import {aStar} from "../algorithms/aStar";
 
 // const startNodeRow = 10;
 // const startNodeCol = 15;
@@ -17,6 +22,7 @@ export default class PathfindingVisualizer extends Component {
         super(props);
         this.state = {
             grid: [],
+            currentAlgorithm: '',
             mouseIsPressed: false,
             pressedNodeType: '',
             startNodeRow: 10,
@@ -45,7 +51,6 @@ export default class PathfindingVisualizer extends Component {
             this.setState({grid: newGrid, pressedNodeType: 'start', mouseIsPressed: true});
 
         } else {
-            console.log('here');
             const newGrid = getNewGridWithWallToggle(this.state.grid, row, col);
             this.setState({grid: newGrid, mouseIsPressed: true});
         }
@@ -56,7 +61,6 @@ export default class PathfindingVisualizer extends Component {
         if (!this.state.mouseIsPressed) return;
         let newGrid;
         if (this.state.pressedNodeType !== 'start') {
-            console.log('here1');
             newGrid = getNewGridWithWallToggle(this.state.grid, row, col);
             this.setState({grid: newGrid});
         }
@@ -79,7 +83,7 @@ export default class PathfindingVisualizer extends Component {
             this.setState({mouseIsPressed: false});
     }
 
-    animateDijkstra(visitedNodesInOrder, nodesInShortestPath) {
+    animate(visitedNodesInOrder, nodesInShortestPath) {
 
         for (let i = 0; i <= visitedNodesInOrder.length; i++) {
             if (i === visitedNodesInOrder.length) {
@@ -109,61 +113,91 @@ export default class PathfindingVisualizer extends Component {
         }
     }
 
-    visualizeDijkstra() {
+    visualize() {
         const {grid} = this.state;
+        let visitedNodesInOrder = [];
         const startNode = grid[this.state.startNodeRow][this.state.startNodeCol];
         const finishNode = grid[this.state.finishNodeRow][this.state.finishNodeCol];
-        const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
+        if (this.state.currentAlgorithm === 'Dijkstra')
+            visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
+        else
+            visitedNodesInOrder = aStar(grid, startNode, finishNode);
+        console.log(visitedNodesInOrder);
         const nodesInShortestPath = getNodesInShortestPath(finishNode);
-        this.animateDijkstra(visitedNodesInOrder, nodesInShortestPath);
+        this.animate(visitedNodesInOrder, nodesInShortestPath);
     }
 
     clean() {
         window.location.reload();
     }
 
+    handleSelectChange = (event) => {
+        this.setState({
+            currentAlgorithm: event.target.value
+        })
+    };
+
+    handleVisualize = () => {
+        console.log('visualize');
+        if (this.state.currentAlgorithm === '') {
+            window.alert('Choose Algorithm to visualize!');
+            return;
+        }
+        this.visualize();
+    };
+
     render() {
         const {grid, mouseIsPressed} = this.state;
+
         return (
             <>
                 <div className="toolbar">
-                    <ul className="nav">
-                        <li id="visualize-btn">
-                            <a href="#" onClick={() => this.visualizeDijkstra()}>
-                                Visualize Dijkstra's algorithm
-                            </a>
-                        </li>
-                        <li id="clean-btn">
-                            <a href="#" onClick={() => this.clean()}>
-                                clean
-                            </a>
-                        </li>
-                    </ul>
+                    <div className="dropdown-bar">
+                        <select id="dropdown" onClick={this.handleSelectChange}>
+                            <option selected disabled value="">Algorithms</option>
+                            <option value="Dijkstra">Dijkstra's Algorithm</option>
+                            <option value="A*">A* Search</option>
+                        </select>
+                    </div>
+                    <div className="actions-btn">
+                        <ul className="nav">
+                            <li id="visualize-btn">
+                                <a href="#" onClick={() => {this.handleVisualize()}}>
+                                    {this.state.currentAlgorithm === '' ? 'Visualize!' : 'Visualize ' + this.state.currentAlgorithm + '!'}
+                                </a>
+                            </li>
+                            <li id="clean-btn">
+                                <a href="#" onClick={() => this.clean()}>
+                                    Clear Board
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div id='mainText'>
                     <ul>
                         <li>
-                            <div className="start"></div>
+                            <div className="start"/>
                             Start Node
                         </li>
                         <li>
-                            <div className="target"></div>
+                            <div className="target"/>
                             Target Node
                         </li>
                         <li>
-                            <div className="unvisited"></div>
+                            <div className="unvisited"/>
                             Unvisited Node
                         </li>
                         <li>
-                            <div className="visited"></div>
+                            <div className="visited"/>
                             Visited Nodes
                         </li>
                         <li>
-                            <div className="shortest-path"></div>
+                            <div className="shortest-path"/>
                             Shortest-path Node
                         </li>
                         <li>
-                            <div className="wall"></div>
+                            <div className="wall"/>
                             Wall Node
                         </li>
                     </ul>
@@ -214,7 +248,7 @@ const getInitGrid = (startRow, startCol, finishRow, finishCol) => {
         grid.push(currRow);
     }
     return grid;
-}
+};
 
 
 const createNode = (col, row, startRow, startCol, finishRow, finishCol) => {
@@ -252,3 +286,32 @@ const getNewGridStartChanged = (grid, row, col) => {
     newGrid[row][col] = newNode;
     return newGrid;
 };
+
+{/*<li className="dropdown open">*/
+}
+{/*    <a className="dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="true">*/
+}
+{/*        "Algorithms"*/
+}
+{/*        <span className="caret"/>*/
+}
+{/*    </a>*/
+}
+{/*    <ul className="dropdown-menu">*/
+}
+{/*        <li id="Dijkstra">*/
+}
+{/*            <a href="#">Dijkstra's Algorithm</a>*/
+}
+{/*        </li>*/
+}
+{/*        <li id="aStar">*/
+}
+{/*            <a href="#">A* Search</a>*/
+}
+{/*        </li>*/
+}
+{/*    </ul>*/
+}
+{/*</li>*/
+}
